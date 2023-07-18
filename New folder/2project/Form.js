@@ -1,21 +1,19 @@
-import React,{ useState } from 'react';
+import React,{ useState,useRef } from 'react';
 import Error from './Error';
 import Card from './Card';
 import './Form.css';
 function Form(props){
-  const [name,setname]=useState('');
-    const [age,setage]=useState('');
-   const [error,setError]=useState();
-function namehandler (e){
 
-  setname(e.target.value);
+   const [error,setError]=useState();
+  const nameInputRef=useRef();
+    const ageInputRef=useRef();
+ const collegeInputRef=useRef();
   
-}
-  function agehandler (e){
-  setage(e.target.value);
-}
   function submit (e){
     e.preventDefault();
+    const name=nameInputRef.current.value;
+    const college=collegeInputRef.current.value;
+     const age=ageInputRef.current.value;
     if(name.trim().length===0 || age.trim().length===0){
      setError({
         title:'invalid input',
@@ -32,12 +30,16 @@ function namehandler (e){
     }
 const obj={
   name:name,
-  age:Number(age)
+  age:age,
+  college:college
+  
 }
     props.onsave(obj);
     console.log(obj);
-    setname('');
-    setage(' ');
+    nameInputRef.current.value=" ";
+      ageInputRef.current.value=" ";
+     collegeInputRef.current.value=" ";
+  
 }
   function Errorhandler(){
     setError(null);
@@ -51,8 +53,9 @@ const obj={
      UserName
     </label>
     <input
-      value={name}
-      onChange={namehandler}
+    
+      ref={nameInputRef}
+    
       type="text"
       className="form-control"
       id="exampleInputEmail1"
@@ -65,11 +68,25 @@ const obj={
    Age
     </label>
     <input
-      value={age}
-      onChange={agehandler}
+    
+      ref={ageInputRef}
+      
       type="Number"
       className="form-control"
       id="exampleInputPassword1"
+    />
+  </div>
+      <div className="mb-3">
+    <label htmlFor="exampleInputCollege1" className="form-label">
+   CollegeName
+    </label>
+    <input
+    
+      ref={collegeInputRef}
+      
+      type="text"
+      className="form-control"
+      id="exampleInputCollege1"
     />
   </div>
  

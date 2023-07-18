@@ -4,7 +4,7 @@ function Show(props){
   return(
     <div>
     
-    <div className='col-8 seprow'>{props.products.name}({props.products.age}year old)</div>
+    <div className='col-8 seprow'>{props.products.name}({props.products.age}year old){props.products.college}</div>
       
       </div>
   );
